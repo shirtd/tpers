@@ -1,14 +1,9 @@
 from multiprocessing import Pool, cpu_count
 from itertools import combinations
-from sklearn.manifold import MDS
 from functools import partial
 from tqdm import tqdm
 import numpy as np
 import sys
-
-
-def dmat_mds(dmat, dims=2, **kwargs):
-    return MDS(dissimilarity='precomputed', n_components=dims, **kwargs).fit_transform(dmat)
 
 def pmap(fun, x, *args, **kw):
 # def pmap(fun, x, max_cores=None, *args, **kw):

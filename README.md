@@ -2,6 +2,7 @@
 
 ## Installation
 
+I'm using Python 3.8.
 Running
 
     pip install -r requirements.txt
@@ -13,11 +14,11 @@ The only dependencies other than the usual (numpy, scipy, sklearn, matplotlib, p
 
 To do a simple viz of raw data from the default data/test set run
 
-    ./main.py --plot input --show
+    python main.py --plot input --show
 
 To run and view (but not save) the default data/test set run
 
-    ./main.py --preset --interact
+    python main.py --preset --interact
 
 Interaction may not work.
 I think you have to set your matplotlib backend to something like Qt5Agg.
@@ -30,11 +31,11 @@ in `~/.matplotlib/matplotlibrc`.
 
 To replicate the results detailed in the report (saving to `figures/{DATASET}/{TESTSET}`) call
 
-    ./main.py --preset --som --plot input pre tpers --save --set {DATASET} --test {TESTSET}
+    python main.py --preset --som --plot input pre tpers --save --set {DATASET} --test {TESTSET}
 
 For example,
 
-    ./main.py --preset --som --plot input pre tpers --save --set SystemSLogs --test cpuhog
+    python main.py --preset --som --plot input pre tpers --save --set SystemSLogs --test cpuhog
 
 is the default behavior.
 Running the bash script
@@ -49,7 +50,7 @@ The `--som` flag attempts to load a `.pkl` file containing a pre-trained self-or
 I don't know if `.pkl` files will survive.
 New ones can be trained by running
 
-    ./mksom.py --set {DATASET} --test {TESTSET}
+    python mksom.py --set {DATASET} --test {TESTSET}
 
 The script trains a model using the training data (`tr.log`) file for the specified data/test set, tests it on the corresponding test data set (`te.log`), and plots the results against an existing model in `cache/som_{DATASET}-{TESTSET}.pkl`, if available.
 Pass anything (other than `n` or `no`) to override the existing model.
@@ -116,7 +117,7 @@ The following arguments are passed to [ripser](https://pypi.org/project/ripser/)
 
 Just run
 
-    ./main.py -h
+    python main.py -h
 
 It's the same thing.
 

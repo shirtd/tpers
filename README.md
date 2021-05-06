@@ -21,9 +21,15 @@ To run and view (but not save) the default data/test set run
 
 Interaction may not work (I think you have to set your matplotlib backend to TkAgg, or something).
 Try clicking on the TPers plot.
+I have
+
+    backend: Qt5Agg
+
+in `~/.matplotlib/matplotlibrc`.
+
 To replicate the results detailed in the report (saving to `figures/{DATASET}/{TESTSET}` call
 
-  ./main.py --preset --som --plot input pre tpers --save --set {DATASET} --test {TESTSET}
+    ./main.py --preset --som --plot input pre tpers --save --set {DATASET} --test {TESTSET}
 
 For example,
 
@@ -53,7 +59,7 @@ There are a number of module-specific arguments that can be tested with the defa
 A few presets are provided if you want to ignore all the options and run what works, but theres a lot to play with here.
 
 ### Processing
-Passing
+Passing something like
 
     --pre A B C
 
@@ -61,7 +67,6 @@ will run operations A, B, and C in order.
 Default behavior (`--preset 0`) is
 
     --pre scale pca=4
-
 
 Available operations are as follows:
 * `scale`: Min-Max scaling on features independently

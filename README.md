@@ -4,7 +4,7 @@
 
 Running
 
-  pip install -r requirements.txt
+    pip install -r requirements.txt
 
 might work.
 The only dependencies other than the usual (numpy, scipy, sklearn, matplotlib, pandas, [tqdm](https://pypi.org/project/tqdm/)) are [ripser](https://pypi.org/project/ripser/) for fast persistence computations, [persim](https://pypi.org/project/persim/) for computing persistence images (also persistence landscapes and bottleneck distance), and [sklearn-som](https://pypi.org/project/sklearn-som/).
@@ -41,25 +41,37 @@ Definition of an `InputData` object that extends `TimeSeriesData` and contains r
 ## Usage
 
 To do a simple viz of raw data from the default data/test set run
-  ./main.py --plot input --show
+
+    ./main.py --plot input --show
+
 To run and view (but not save) the default data/test set run
-  ./main.py --preset --interact
+
+    ./main.py --preset --interact
+
 Interaction may not work (I think you have to set your matplotlib backend to TkAgg, or something).
 Try clicking on the TPers plot.
 To replicate the results detailed in the report (saving to `figures/{DATASET}/{TESTSET}` call
+
   ./main.py --preset --som --plot input pre tpers --save --set {DATASET} --test {TESTSET}
+
 For example,
-  ./main.py --preset --som --plot input pre tpers --save --set SystemSLogs --test cpuhog
+
+    ./main.py --preset --som --plot input pre tpers --save --set SystemSLogs --test cpuhog
+
 is the default behavior.
 Running the bash script
-  ./mkfigs.sh
+
+    ./mkfigs.sh
+
 will run presets on all data/test sets in the `data` directory, generating the figures included in the report (hopefully).
 
 #### A Note
 
 The --som flag attempts to load a `.pkl` file containing a pre-trained self-organizing map (SOM) for the specified data/test set.
 I don't know if `.pkl` files will survive, new ones can be trained by running
-  ./mksom.py --set {DATASET} --test {TESTSET}
+
+    ./mksom.py --set {DATASET} --test {TESTSET}
+
 The script trains a model using the training data (`tr.log`) file for the specified data/test set, tests it on the corresponding test data set (`te.log`), and plots the results against the existing model in `cache/som_{DATASET}-{TESTSET}.pkl`, if available.
 Pass anything (other than `n` or `no`) to override the existing model.
 If no model exists it just saves it.
@@ -71,10 +83,14 @@ A few presets are provided if you want to ignore all the options and run what wo
 
 #### Processing
 Passing
-  --pre A B C
+
+    --pre A B C
+
 will run operations A, B, and C in order.
 Default behavior (`--preset 0`) is
-  --pre scale pca=4
+
+    --pre scale pca=4
+
 
 Available operations are as follows:
 * `scale`: Min-Max scaling on features independently
@@ -125,8 +141,10 @@ The following arguments are passed to `ripser` for each frame.
 #### Program Arguments
 
 Ugh. Just run
-  ./main.py -h
-its the same thing.
+
+    ./main.py -h
+
+It's the same thing.
 
 * `--data`: Print available data/test sets,
 * `--dir {DATA_DIR}`: Data directory. Default: `./data`,

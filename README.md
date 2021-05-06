@@ -9,35 +9,6 @@ Running
 might work.
 The only dependencies other than the usual (numpy, scipy, sklearn, matplotlib, pandas, [tqdm](https://pypi.org/project/tqdm/)) are [ripser](https://pypi.org/project/ripser/) for fast persistence computations, [persim](https://pypi.org/project/persim/) for computing persistence images (also persistence landscapes and bottleneck distance), and [sklearn-som](https://pypi.org/project/sklearn-som/).
 
-## System Specification
-
-The dataset should be specified and included in `main.py`.
-The UBL data is included (?), and specified in `ubl_data.py`.
-At this time the user is required to specify
-
-#### Available Data
-* `AVAIL_DATA`: Dictionary of available data/test sets,
-* `AVAIL_VALUES`: List of available values (features) for each data point/
-
-#### Data Defaults
-* `DIR`: Directory containing data,
-* `DATASET`: Default dataset,
-* `TESTSET`:Default test set,
-* `LOGFILE`:Default test file,
-* `VALUES`: Default values (features).
-
-#### Program Defaults
-* `LENGTH`: Transformation window length,
-* `OVERLAP`: Transformation window overlap,
-* `DIM`: Max persistence dimension,
-
-#### Presets
-* `PRESETS`: List of argument presets,
-* `PRESET_DICT`: Data/test set presets (when `--preset` is passed without argument).
-
-#### InputData class (todo)
-Definition of an `InputData` object that extends `TimeSeriesData` and contains raw input data for a given data/test set.
-
 ## Usage
 
 To do a simple viz of raw data from the default data/test set run
@@ -67,7 +38,7 @@ will run presets on all data/test sets in the `data` directory, generating the f
 
 #### A Note
 
-The --som flag attempts to load a `.pkl` file containing a pre-trained self-organizing map (SOM) for the specified data/test set.
+The `--som` flag attempts to load a `.pkl` file containing a pre-trained self-organizing map (SOM) for the specified data/test set.
 I don't know if `.pkl` files will survive, new ones can be trained by running
 
     ./mksom.py --set {DATASET} --test {TESTSET}
@@ -76,12 +47,12 @@ The script trains a model using the training data (`tr.log`) file for the specif
 Pass anything (other than `n` or `no`) to override the existing model.
 If no model exists it just saves it.
 
-### Arguments
+## Arguments
 
 There are a number of module-specific arguments that can be tested with the default behavior on the data/test set.
 A few presets are provided if you want to ignore all the options and run what works, but theres a lot to play with here.
 
-#### Processing
+### Processing
 Passing
 
     --pre A B C
@@ -106,12 +77,12 @@ Available operations are as follows:
 The same operations can be applied to the total persistence curve by passing them as arguments to `--post`.
 Note that this has no effect on `kmeans` prediction on `persistence`, but does affect prediction via `threshold` on `tpers` (see below).
 
-#### Window
+### Window
 
 * `--length {n}`: set the window length to `n`,
 * `--overlap {w}`: set the window overlap to `w`,
 
-#### Transform
+### Transform
 
 If none of `--period`, `--fft`, or `--torus` are passed persistence will be run on raw windowed data.
 
@@ -121,7 +92,7 @@ If none of `--period`, `--fft`, or `--torus` are passed persistence will be run 
 * `--exp {p}`: Apply `p` as an exponent to all data, for fun. Executed before all other transforms.
 * `--abs`: Take the absolute value of all data, for science. Executed before all other transforms.
 
-#### Persistence
+### Persistence
 
 The persistence computation is carried out using Persistence is carried out using [ripser](https://pypi.org/project/ripser/).
 The following arguments are passed to `ripser` for each frame.
@@ -132,13 +103,13 @@ The following arguments are passed to `ripser` for each frame.
 * `--metric {euclidean, manhattan, cosine}`: Metric for Rips computation. Default: `euclidean`.
 
 
-#### Total Persistence (almost depricated)
+### Total Persistence (almost depricated)
 * `--invert {d,...}`: Invert provided dimensions (multiply by -1. Inverted in the sum),
 * `--entropy`: Compute [persistent entropy](https://persim.scikit-tda.org/en/latest/notebooks/Persistence%20barcode%20measure.html), for science (and fun),
 * `--average`: Compute average total persistence in each dimension,
 * `--pmin {m}`: Only include diagram features with total persistence at least `m`.
 
-#### Program Arguments
+### Program Arguments
 
 Ugh. Just run
 
@@ -159,7 +130,7 @@ It's the same thing.
 * `--nroc {n}`: Number of points on ROC curve,
 * `--frame {f}`: Frame to plot (if `window` or `transform` passed to plot). For saving purposes. __Warning__ untested,
 * `--show`: Show plot, otherwise it will just quit (if neither `--save` nor `--interact` is passed),
-* `--save`: Save plots to directory. Default: `./figures/{DATASET}/{TESTSET}`)
+* `--save {?fdir}`: Save plots to directory. Default: `./figures/{DATASET}/{TESTSET}`)
 * `--predict {threshold,SOM,kmeans,minkmeans,maxkmeans}`: Don't pass `SOM`. min/max kmeans are dumb. Threshold is just prediction by thresholding each feature.
 * `--analyze {input, pre, persistence, tpers, post}`: Modules to analyze. Pass `--analyze {MODULE}={PREDICT}` to override prediction type passed by `--predict` for a given module,
 * `--aplot {input, pre, persistence, tpers, post}`: Analyze and plot module,
@@ -167,5 +138,34 @@ It's the same thing.
 * `--som`: Compare with saved SOM model (in cache),
 * `--lead {W}`: SOM predict lead (anomaly pending) time. Default: 10,
 * `--streak {s}`: Streak of anomalies required to raise SOM alarm. Default: 3
+
+## System Specification
+
+The dataset should be specified and included in `main.py`.
+The UBL data is included (?), and specified in `ubl_data.py`.
+At this time the user is required to specify
+
+### Available Data
+* `AVAIL_DATA`: Dictionary of available data/test sets,
+* `AVAIL_VALUES`: List of available values (features) for each data point/
+
+### Data Defaults
+* `DIR`: Directory containing data,
+* `DATASET`: Default dataset,
+* `TESTSET`:Default test set,
+* `LOGFILE`:Default test file,
+* `VALUES`: Default values (features).
+
+### Program Defaults
+* `LENGTH`: Transformation window length,
+* `OVERLAP`: Transformation window overlap,
+* `DIM`: Max persistence dimension,
+
+### Presets
+* `PRESETS`: List of argument presets,
+* `PRESET_DICT`: Data/test set presets (when `--preset` is passed without argument).
+
+### InputData class (todo)
+Definition of an `InputData` object that extends `TimeSeriesData` and contains raw input data for a given data/test set.
 
 # GLHF

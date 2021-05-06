@@ -1,0 +1,17 @@
+This file contains the data for SystemS, RUBiS, an Hadoop. Each subdirectory is named for the bug files they contain (e.g., Bottleneck, CPUHog, etc).  The training files for each bug are named "tr.log" or "training.log". The testing files for each bug are named "te.log" or "testing.log". These logs have already been labeled appropriatly. The log format is:
+
+Timestamp Metric_1 Value_1 Metric_2 Value_2 ... Metric_N Value_N Label
+
+The label value is 0 for normal and 2 for anomaly.
+
+The raw unlabeled logs are also in each sub-directory along with either job progress score, response time, or throughput. The format of the files used for labeling are:
+
+RUBIS:
+<Timestamp>|<average_response_time>|<total_request_sent_in_last_5s>|<violation_rate>|<debuginfo>
+
+SystemS:
+<timestamp>|<display time>|total packets|<total_packets>|delay|<delay_in_ms(or average processing time)>
+
+Hadoop: 
+<timestamp>|<current_progresss_score>|<average_progress_speed>
+

@@ -7,7 +7,7 @@ Running
     pip install -r requirements.txt
 
 might work.
-The only dependencies other than the usual (numpy, scipy, sklearn, matplotlib, pandas, [tqdm](https://pypi.org/project/tqdm/)) are [ripser](https://pypi.org/project/ripser/) for fast persistence computations, [persim](https://pypi.org/project/persim/) for computing persistence images (also persistence landscapes and bottleneck distance), and [sklearn-som](https://pypi.org/project/sklearn-som/).
+The only dependencies other than the usual (numpy, scipy, sklearn, matplotlib, pandas, [tqdm](https://pypi.org/project/tqdm/)) are [ripser](https://pypi.org/project/ripser/) for fast persistence computations, [persim](https://pypi.org/project/persim/) for computing persistence images, and [sklearn-som](https://pypi.org/project/sklearn-som/).
 
 ## Usage
 
@@ -19,7 +19,8 @@ To run and view (but not save) the default data/test set run
 
     ./main.py --preset --interact
 
-Interaction may not work (I think you have to set your matplotlib backend to TkAgg, or something).
+Interaction may not work.
+I think you have to set your matplotlib backend to something like Qt5Agg.
 Try clicking on the TPers plot.
 I have
 
@@ -27,7 +28,7 @@ I have
 
 in `~/.matplotlib/matplotlibrc`.
 
-To replicate the results detailed in the report (saving to `figures/{DATASET}/{TESTSET}` call
+To replicate the results detailed in the report (saving to `figures/{DATASET}/{TESTSET}`) call
 
     ./main.py --preset --som --plot input pre tpers --save --set {DATASET} --test {TESTSET}
 
@@ -45,18 +46,16 @@ will run presets on all data/test sets in the `data` directory, generating the f
 #### A Note
 
 The `--som` flag attempts to load a `.pkl` file containing a pre-trained self-organizing map (SOM) for the specified data/test set.
-I don't know if `.pkl` files will survive, new ones can be trained by running
+I don't know if `.pkl` files will survive.
+New ones can be trained by running
 
     ./mksom.py --set {DATASET} --test {TESTSET}
 
-The script trains a model using the training data (`tr.log`) file for the specified data/test set, tests it on the corresponding test data set (`te.log`), and plots the results against the existing model in `cache/som_{DATASET}-{TESTSET}.pkl`, if available.
+The script trains a model using the training data (`tr.log`) file for the specified data/test set, tests it on the corresponding test data set (`te.log`), and plots the results against an existing model in `cache/som_{DATASET}-{TESTSET}.pkl`, if available.
 Pass anything (other than `n` or `no`) to override the existing model.
-If no model exists it just saves it.
+If no model exists it just saves.
 
 ## Arguments
-
-There are a number of module-specific arguments that can be tested with the default behavior on the data/test set.
-A few presets are provided if you want to ignore all the options and run what works, but theres a lot to play with here.
 
 ### Processing
 Passing something like
@@ -99,8 +98,7 @@ If none of `--period`, `--fft`, or `--torus` are passed persistence will be run 
 
 ### Persistence
 
-The persistence computation is carried out using Persistence is carried out using [ripser](https://pypi.org/project/ripser/).
-The following arguments are passed to `ripser` for each frame.
+The following arguments are passed to [ripser](https://pypi.org/project/ripser/) for each frame.
 
 * `--dim {d}`: Maximum rips/persistence dimension,
 * `--thresh {t}`: Maximum distance to compute in the Rips complex,
@@ -110,13 +108,13 @@ The following arguments are passed to `ripser` for each frame.
 
 ### Total Persistence (almost depricated)
 * `--invert {d,...}`: Invert provided dimensions (multiply by -1. Inverted in the sum),
-* `--entropy`: Compute [persistent entropy](https://persim.scikit-tda.org/en/latest/notebooks/Persistence%20barcode%20measure.html), for science (and fun),
+* `--entropy`: Compute [persistent entropy](https://persim.scikit-tda.org/en/latest/notebooks/Persistence%20barcode%20measure.html), for fun (and science),
 * `--average`: Compute average total persistence in each dimension,
 * `--pmin {m}`: Only include diagram features with total persistence at least `m`.
 
 ### Program Arguments
 
-Ugh. Just run
+Just run
 
     ./main.py -h
 
